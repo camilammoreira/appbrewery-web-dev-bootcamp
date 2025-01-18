@@ -1,4 +1,7 @@
-const randomNumber1 = Math.floor(Math.random() * 6) + 1;
+const rollButton = document.querySelector("button");
+
+rollButton.addEventListener("click", function() {
+    const randomNumber1 = Math.floor(Math.random() * 6) + 1;
 const randomNumber2 = Math.floor(Math.random() * 6) + 1;
 
 const dice1 = document.querySelector(".img1");
@@ -16,3 +19,4 @@ if (randomNumber1 > randomNumber2) {
 } else {
     pageTitle.innerHTML = "Draw!";
 }
+})
