@@ -1,7 +1,7 @@
 const buttonColours = ["red", "blue", "green", "yellow"];
 let gamePattern = [];
-let sound = new Audio();
 let userClickedPattern = [];
+let sound = new Audio();
 let level = 0;
 
 $(document).on("keydown", function () {
@@ -11,12 +11,12 @@ $(document).on("keydown", function () {
 });
 
 function nextSequence() {
+    userClickedPattern = [];
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColour = buttonColours[randomNumber];
 
     gamePattern.push(randomChosenColour);
     playSound(randomChosenColour);
-
     $("#" + randomChosenColour).fadeOut(50).fadeIn(50);
     $("#level-title").text("Level " + level++);
 }
@@ -43,6 +43,7 @@ function checkAnswer(currentLevel) {
         setTimeout(() => {
             $("body").removeClass("game-over");
         }, 200);
+
         gamePattern = [];
         level = 0;
         $("#level-title").text("Game Over, Press Any Key to Restart");
