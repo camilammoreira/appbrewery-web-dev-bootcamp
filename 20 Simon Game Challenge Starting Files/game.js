@@ -4,11 +4,22 @@ let userClickedPattern = [];
 let sound = new Audio();
 let level = 0;
 
-$(document).on("keydown", function () {
-    if (gamePattern.length === 0) {
-        nextSequence();
-    }
-});
+if (screen.width > 1125) {
+    $(document).on("keydown", function () {
+        if (gamePattern.length === 0) {
+            nextSequence();
+        }
+    });
+} else {
+    $("#level-title").html("<button id='start-btn'>Start</button>");
+    $("#start-btn").on("click", function () {
+        if (gamePattern.length === 0) {
+            nextSequence();
+        }
+    });
+}
+
+
 
 function nextSequence() {
     userClickedPattern = [];
@@ -46,7 +57,11 @@ function checkAnswer(currentLevel) {
 
         gamePattern = [];
         level = 0;
-        $("#level-title").text("Game Over, Press Any Key to Restart");
+        if (screen.width > 1125) {
+            $("#level-title").text("Game Over, Press Any Key to Restart");
+        } else {
+            $("#level-title").text("Game Over, Refresh to Restart");
+        }
     }
 }
 
