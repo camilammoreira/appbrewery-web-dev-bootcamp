@@ -2,7 +2,7 @@ const buttonColours = ["red", "blue", "green", "yellow"];
 let gamePattern = [];
 let sound = new Audio();
 let userClickedPattern = [];
-        let level = 0;
+let level = 0;
 
 $(document).on("keydown", function () {
     if (gamePattern.length === 0) {
@@ -13,10 +13,10 @@ $(document).on("keydown", function () {
 function nextSequence() {
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColour = buttonColours[randomNumber];
-    
+
     gamePattern.push(randomChosenColour);
     playSound(randomChosenColour);
-    
+
     $("#" + randomChosenColour).fadeOut(50).fadeIn(50);
     $("#level-title").text("Level " + level++);
 }
@@ -26,11 +26,21 @@ $(".btn").on("click", function (event) {
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
     animatePress(userChosenColour);
-    setTimeout(() => {
-        nextSequence();
-    }, 1000);
-    
+    checkAnswer(userClickedPattern.length - 1);
 });
+
+function checkAnswer(currentLevel) {
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+        if (userClickedPattern.length === gamePattern.length) {
+            setTimeout(() => {
+                nextSequence();
+            }, 1000);
+            userClickedPattern = [];
+        }
+    } else {
+        console.log("wrong");
+    }
+}
 
 function playSound(name) {
     switch (name) {
@@ -50,7 +60,7 @@ function playSound(name) {
             sound = new Audio("./sounds/yellow.mp3");
             sound.play();
             break;
-        default:
+        case "wrong":
             sound = new Audio("./sounds/wrong.mp3");
             sound.play();
     }
@@ -62,6 +72,4 @@ function animatePress(currentColor) {
     setTimeout(() => {
         clickedButton.removeClass("pressed")
     }, 100);
-    
-
 }
