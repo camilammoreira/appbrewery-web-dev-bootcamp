@@ -2,13 +2,38 @@ const buttonColours = ["red", "blue", "green", "yellow"];
 let gamePattern = [];
 let sound = new Audio();
 let userClickedPattern = [];
+        let level = 0;
+
+$(document).on("keydown", function () {
+    if (gamePattern.length === 0) {
+        nextSequence();
+    }
+});
 
 function nextSequence() {
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColour = buttonColours[randomNumber];
+    
     gamePattern.push(randomChosenColour);
+    playSound(randomChosenColour);
+    
     $("#" + randomChosenColour).fadeOut(50).fadeIn(50);
-    switch (randomChosenColour) {
+    $("#level-title").text("Level " + level++);
+}
+
+$(".btn").on("click", function (event) {
+    let userChosenColour = event.target.id;
+    userClickedPattern.push(userChosenColour);
+    playSound(userChosenColour);
+    animatePress(userChosenColour);
+    setTimeout(() => {
+        nextSequence();
+    }, 1000);
+    
+});
+
+function playSound(name) {
+    switch (name) {
         case "blue":
             sound = new Audio("./sounds/blue.mp3");
             sound.play();
@@ -31,9 +56,12 @@ function nextSequence() {
     }
 }
 
-$(".btn").on("click", function(event) {
-    let userChosenColour = event.target.id;
-    console.log(userChosenColour);
-    userClickedPattern.push(userChosenColour);
-    console.log(userClickedPattern);
-})
+function animatePress(currentColor) {
+    const clickedButton = $("#" + currentColor);
+    clickedButton.addClass("pressed");
+    setTimeout(() => {
+        clickedButton.removeClass("pressed")
+    }, 100);
+    
+
+}
