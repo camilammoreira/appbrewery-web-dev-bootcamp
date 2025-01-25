@@ -15,7 +15,7 @@ $("h1").click(function() {
 });
 
 // Event Listener with .on
-$("button").on("click", function () {
+$("#color").on("click", function () {
     $("h1").toggleClass("toggle");
 });
 
@@ -32,3 +32,25 @@ $("h1").append("<button>.append()</button>");
 
 // Remove element on the fly
 // $("button").remove(); // Removes ALL the buttons because of the $ notation
+
+
+// ANIMATIONS
+$("#toggle").on("click", function () {
+    $("h1").toggle();
+});
+
+$("#fade").on("click", function () {
+    $("h1").fadeToggle();
+});
+
+$("#slide").on("click", function () {
+    $("h1").slideToggle();
+});
+
+$("#animate").on("click", function () {
+    $("h1").animate({margin: "40"});
+});
+
+$("#concatenation").on("click", function () {
+    $("h1").slideUp().slideDown().animate({opacity: ".5"});
+});
