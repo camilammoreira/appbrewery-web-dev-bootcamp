@@ -27,6 +27,6 @@
   border-radius: 50%;
 }
 
-.text-body-light, footer {
-  color: #fff;
+.text-body-light, h1.text-body-emphasis, footer {
+  color: #fff !important;
 }
